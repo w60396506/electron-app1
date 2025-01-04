@@ -5,31 +5,25 @@ on:
       - 'v*'
 
 jobs:
-  release:
+  build:
     runs-on: macos-latest
-
     steps:
-      - name: Check out Git repository
-        uses: actions/checkout@v3
-
-      - name: Install Node.js
-        uses: actions/setup-node@v3
+      - uses: actions/checkout@v3
+      
+      - uses: actions/setup-node@v3
         with:
           node-version: 16
-
-      - name: Install Dependencies
-        run: |
-          npm install
-          npm install --save-dev @electron-forge/cli
-          npm install --save-dev @electron-forge/maker-dmg
-          npm install --save-dev electron-builder
-
-      - name: Build with electron-builder
-        run: npx electron-builder --mac
+          cache: 'npm'
+          
+      - name: Install dependencies
+        run: npm install
+        
+      - name: Build
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Upload Artifacts
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npm run build
+        
+      - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
           name: mac-build

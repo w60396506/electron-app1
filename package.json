@@ -4,31 +4,28 @@
   "description": "音效按钮",
   "author": "Your Name",
   "main": "main.js",
+  "private": true,
   "scripts": {
     "start": "electron .",
-    "build": "electron-builder --mac"
+    "build": "electron-builder"
   },
   "devDependencies": {
     "electron": "^20.0.0",
-    "@electron-forge/cli": "^6.0.0",
-    "@electron-forge/maker-dmg": "^6.0.0",
     "electron-builder": "^24.0.0"
   },
   "build": {
-    "appId": "com.your.soundbuttons",
+    "appId": "com.soundbuttons.app",
     "productName": "音效按钮",
+    "directories": {
+      "output": "dist"
+    },
     "mac": {
+      "target": {
+        "target": "dmg",
+        "arch": ["x64", "arm64"]
+      },
       "category": "public.app-category.utilities",
-      "target": [
-        {
-          "target": "dmg",
-          "arch": ["x64", "arm64"]
-        }
-      ],
-      "electronLanguages": ["zh-CN"],
-      "minimumSystemVersion": "10.13.0",
-      "hardenedRuntime": true,
-      "gatekeeperAssess": false
+      "minimumSystemVersion": "10.13.0"
     }
   }
 }
