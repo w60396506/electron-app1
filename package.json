@@ -7,7 +7,7 @@
   "private": true,
   "scripts": {
     "start": "electron .",
-    "build": "electron-builder"
+    "build": "electron-builder --mac --publish never"
   },
   "devDependencies": {
     "electron": "^20.0.0",
@@ -19,13 +19,16 @@
     "directories": {
       "output": "dist"
     },
+    "publish": null,
     "mac": {
-      "target": {
-        "target": "dmg",
-        "arch": ["x64", "arm64"]
-      },
-      "category": "public.app-category.utilities",
-      "minimumSystemVersion": "10.13.0"
+      "target": "dmg",
+      "arch": ["x64", "arm64"],
+      "category": "public.app.category.utilities",
+      "minimumSystemVersion": "10.13.0",
+      "identity": null
+    },
+    "dmg": {
+      "sign": false
     }
   }
 }
