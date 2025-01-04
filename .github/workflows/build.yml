@@ -1,15 +1,15 @@
-name: Build and Release
-
+name: Build
 on:
   push:
     tags:
       - 'v*'
 
-permissions: write-all
-
 jobs:
   release:
-    runs-on: macos-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [windows-latest, macos-latest]
 
     steps:
       - name: Check out Git repository
@@ -18,41 +18,24 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: 16
 
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build Electron app
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Install Dependencies
         run: |
-          npm run build
-          echo "Listing build artifacts:"
-          ls -la dist/
-          ls -la dist/mac/ || true
+          npm install
+          npm install --save-dev @electron-forge/cli
+          npm install --save-dev @electron-forge/maker-dmg
+          npm install --save-dev electron-builder
 
-      - name: Upload Release Assets
-        uses: softprops/action-gh-release@v1
-        if: startsWith(github.ref, 'refs/tags/')
-        with:
-          files: |
-            dist/*.dmg
-            dist/*.zip
-            dist/mac/*.dmg
-            dist/mac/*.zip
-          draft: false
-          prerelease: false
+      - name: Build with electron-builder
+        run: npx electron-builder --${{ matrix.os == 'windows-latest' && 'win' || 'mac' }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: electron-app-builds
+          name: ${{ matrix.os }}
           path: |
+            dist/*.exe
             dist/*.dmg
-            dist/*.zip
-            dist/mac/*.dmg
-            dist/mac/*.zip
