@@ -9,8 +9,8 @@
     "build:mac": "electron-builder --mac --universal"
   },
   "build": {
-    "appId": "com.example.electron-mac-template",
-    "productName": "ElectronMacApp",
+    "appId": "com.soundbuttons.app",
+    "productName": "音效按钮",
     "mac": {
       "category": "public.app-category.utilities",
       "target": [
@@ -24,8 +24,12 @@
       ],
       "hardenedRuntime": true,
       "gatekeeperAssess": false,
-      "minimumSystemVersion": "10.13.0",
-      "electronLanguages": ["zh-CN"]
+      "entitlements": "build/entitlements.mac.plist",
+      "entitlementsInherit": "build/entitlements.mac.plist",
+      "extendInfo": {
+        "NSMicrophoneUsageDescription": "需要访问麦克风来获取音频设备列表",
+        "NSCameraUsageDescription": "此应用不需要访问相机"
+      }
     },
     "dmg": {
       "sign": false

@@ -19,21 +19,28 @@ function createWindow() {
             contextIsolation: false,
             webSecurity: false,
             enableWebAudio: true,
-            permissions: [
-                'audioCapture',
-                'audioOutput',
-                'media'
-            ]
+            // Mac 下需要这些权限
+            sandbox: false,
+            allowRunningInsecureContent: true
         }
     });
 
+    // Mac 下的权限设置
+    if (process.platform === 'darwin') {
+        // 设置 Mac 下的媒体权限
+        mainWindow.webContents.on('media-started-playing', () => {
+            try {
+                app.commandLine.appendSwitch('autoplay-policy', 'no-user-gesture-required');
+            } catch (error) {
+                console.error('Error setting autoplay policy:', error);
+            }
+        });
+    }
+
     // 设置权限请求处理
     mainWindow.webContents.session.setPermissionRequestHandler((webContents, permission, callback) => {
-        callback(true);  // 允许所有权限请求
+        callback(true);
     });
-
-    // 设置设备权限处理
-    mainWindow.webContents.session.setDevicePermissionHandler(() => true);
 
     mainWindow.loadFile('src/index.html');
 
@@ -127,13 +134,21 @@ function safeWebContentsCall(callback) {
 // 修改注册快捷键的处理
 ipcMain.handle('register-hotkey', async (event, { hotkey, buttonId }) => {
     try {
+        // Mac 下需要将 CommandOrControl 转换为 Command
+        if (process.platform === 'darwin') {
+            hotkey = hotkey.replace('CommandOrControl', 'Command');
+        }
+        
         // 先尝试注销这个快捷键（如果已存在）
-        globalShortcut.unregister(hotkey);
+        if (globalShortcut.isRegistered(hotkey)) {
+            globalShortcut.unregister(hotkey);
+        }
         
         // 注册新的快捷键
         const success = globalShortcut.register(hotkey, () => {
-            // 发送事件到渲染进程
-            event.sender.send('hotkey-triggered', buttonId);
+            safeWebContentsCall(webContents => {
+                webContents.send('hotkey-triggered', buttonId);
+            });
         });
         
         console.log('Hotkey registration:', hotkey, success ? 'succeeded' : 'failed');
