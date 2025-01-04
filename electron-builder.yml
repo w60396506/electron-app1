@@ -1,19 +1,22 @@
-appId: com.yourdomain.soundbutton
-productName: SoundButton
+appId: com.soundbuttons.app
+productName: 音效按钮
 directories:
   output: dist
-  buildResources: build
-electronVersion: 25.0.0  # 使用较低的 Electron 版本以支持更多系统
+asar: true
 mac:
-  category: public.app-category.utilities
   target:
     - target: dmg
       arch:
         - x64
         - arm64
-  hardenedRuntime: true
+  artifactName: "${productName}-${version}-${arch}.${ext}"
+  category: public.app.category.utilities
+  minimumSystemVersion: "10.13.0"
+  identity: null
+  hardenedRuntime: false
   gatekeeperAssess: false
-  entitlements: build/entitlements.mac.plist
-  entitlementsInherit: build/entitlements.mac.plist
+  entitlements: null
+  entitlementsInherit: null
+  signIgnore: true
 dmg:
   sign: false 

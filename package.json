@@ -7,28 +7,10 @@
   "private": true,
   "scripts": {
     "start": "electron .",
-    "build": "electron-builder --mac --publish never"
+    "build": "electron-builder --mac --config electron-builder.yml"
   },
   "devDependencies": {
     "electron": "^20.0.0",
     "electron-builder": "^24.0.0"
-  },
-  "build": {
-    "appId": "com.soundbuttons.app",
-    "productName": "音效按钮",
-    "directories": {
-      "output": "dist"
-    },
-    "publish": null,
-    "mac": {
-      "target": "dmg",
-      "arch": ["x64", "arm64"],
-      "category": "public.app.category.utilities",
-      "minimumSystemVersion": "10.13.0",
-      "identity": null
-    },
-    "dmg": {
-      "sign": false
-    }
   }
 }
