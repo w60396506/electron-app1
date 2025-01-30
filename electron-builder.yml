@@ -1,0 +1,22 @@
+appId: com.soundbuttons.app
+productName: 音效按钮
+directories:
+  output: dist
+asar: true
+mac:
+  target:
+    - target: dmg
+      arch:
+        - x64
+        - arm64
+  artifactName: "${productName}-${version}-${arch}.${ext}"
+  category: public.app.category.utilities
+  minimumSystemVersion: "10.13.0"
+  identity: null
+  hardenedRuntime: false
+  gatekeeperAssess: false
+  entitlements: null
+  entitlementsInherit: null
+  signIgnore: true
+dmg:
+  sign: false 

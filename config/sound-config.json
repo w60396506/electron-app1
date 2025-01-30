@@ -1,0 +1,58 @@
+{
+  "buttons": [
+    {
+      "category": "喊麦",
+      "index": 0,
+      "id": "喊麦-button-1735909537205-ummjaaau7",
+      "name": " 奥利给DJ",
+      "audioPath": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\Rar$DRa0.338\\sound-buttons\\sounds\\ 奥利给DJ.mp3",
+      "isEmpty": false,
+      "hotkey": "2"
+    },
+    {
+      "category": "喊麦",
+      "index": 1,
+      "id": "喊麦-button-1735911470726-jny0lkixu",
+      "name": "发电报",
+      "audioPath": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\Rar$DRa0.979\\sound-buttons\\src\\resources\\发电报.mp3",
+      "isEmpty": false,
+      "hotkey": ""
+    },
+    {
+      "category": "喊麦",
+      "index": 2,
+      "id": "喊麦-button-1735911496083-yqgceekk8",
+      "name": "只是太爱你",
+      "audioPath": "E:\\编程文件\\音效助手从新编写快捷键\\收费程序云端音效数据\\热门下载音乐备份\\只是太爱你.mp3",
+      "isEmpty": false,
+      "hotkey": "3"
+    },
+    {
+      "category": "喊麦",
+      "index": 3,
+      "id": "喊麦-button-1735913264480-xoo9oc51o",
+      "name": "古惑仔出场",
+      "audioPath": "F:\\原F盘文件\\桌面文件全部备份\\桌面重要文件\\附加本地音效\\古惑仔出场.mp3",
+      "isEmpty": false,
+      "hotkey": "4"
+    },
+    {
+      "category": "主持",
+      "index": 0,
+      "id": "主持-button-1738240546068-csgqy2cgl",
+      "name": "",
+      "audioPath": "",
+      "isEmpty": true,
+      "hotkey": "1"
+    },
+    {
+      "category": "主持",
+      "index": 1,
+      "id": "主持-button-1738240546068-1z7iz2b1e",
+      "name": "（脚步声）",
+      "audioPath": "C:\\Users\\Administrator\\Desktop\\（脚步声）.mp3",
+      "isEmpty": false,
+      "hotkey": ""
+    }
+  ]
+}

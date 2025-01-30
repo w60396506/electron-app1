@@ -1,0 +1,30 @@
+name: Build
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          
+      - name: Install dependencies
+        run: npm install
+        
+      - name: Build
+        env:
+          CSC_IDENTITY_AUTO_DISCOVERY: false
+          ELECTRON_BUILDER_SIGN: false
+        run: npm run build
+        
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: mac-build
+          path: dist/*.dmg
